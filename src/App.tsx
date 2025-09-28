@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-
-import './App.css'
 import { getUser } from './api/test_api'
 
 interface ApiResponse {
