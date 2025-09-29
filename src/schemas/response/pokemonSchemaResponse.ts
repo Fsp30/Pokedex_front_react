@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { opinionResponseSchema } from "./opinionSchemaResponse";
 
 const namedAPIResourceSchema = z.object({
         name: z.string(),
@@ -90,4 +91,10 @@ export const pokemonResponseSchema = z.object({
 
         likes: z.number().default(0),
         opinionsCount: z.number().default(0),
+})
+
+export const pokemonFullResponseSchema = z.object({
+        api_data: pokemonResponseSchema,
+        likes: z.number(),
+        opinions: z.array(opinionResponseSchema)
 })
