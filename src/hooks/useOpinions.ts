@@ -15,7 +15,8 @@ export function useListOpinions(name: string) {
     return useQuery<ListOpinions>({
         queryKey: ["pokemon_opinion", name],
         queryFn: () => getPokemonOpinions(name),
-        enabled: !!name
+        enabled: !!name,
+        retry: 1
     })
 }
 
