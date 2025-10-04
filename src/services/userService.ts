@@ -7,11 +7,17 @@ type User = z.infer<typeof userResponseSchema>
 
 export async function createUser(userName: string): Promise<User> {
         try {
-                const validatedInput = createUserInput.parse({ userName }) 
-                const { data } = await api.post('/users', validatedInput) 
+                const validatedInput = createUserInput.parse({ userName });
+                const { data } = await api.post('/users', validatedInput);
 
-                return userResponseSchema.parse(data)
+                const validatedResponse = userResponseSchema.parse(data);
+
+                return {
+                        id: validatedResponse.id,
+                        userName: validatedResponse.userName || userName
+                }
+
         } catch (err: any) {
-                throw new Error(err.response?.data?.error || err.message || "Error creating user")
+                throw new Error(err.response?.data?.error || err.message || "Error creating user");
         }
 }
