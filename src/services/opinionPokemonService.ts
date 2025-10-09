@@ -9,7 +9,10 @@ type OpinionListResponse = z.infer<typeof opinionListResponseSchema>
 export async function CreateOpinionPokemon(pokemon_name: string, params: CreateOpinionInput): Promise<void> {
         try {
                 const validatedParams = createOpinionInputSchema.parse(params)
-                await api.post(`/pokemon/${pokemon_name}/opinion`, validatedParams)
+                await api.post(`/pokemon/${pokemon_name}/opinion`, {
+                        user_id: validatedParams.user_id,
+                        text: validatedParams.text
+                })
                 return
         } catch (err: any) {
                 throw new Error(err.response?.data?.error || err.message || "Error adding opinion to Pokemon")

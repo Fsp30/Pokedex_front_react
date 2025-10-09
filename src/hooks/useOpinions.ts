@@ -15,21 +15,22 @@ export function useListOpinions(name: string) {
     return useQuery<ListOpinions>({
         queryKey: ["pokemon_opinion", name],
         queryFn: () => getPokemonOpinions(name),
-        enabled: !!name
+        enabled: !!name,
+        retry: 1
     })
 }
 
 
-export function useAddOpinion(name: string) {
+export function useAddOpinion() {
     const queryClient = useQueryClient()
 
     return useMutation<void, unknown, CreateOpinionInput, { previousPokemon?: Pokemon }>({
-        mutationFn: (input) => CreateOpinionPokemon(name, input),
+        mutationFn: (input) => CreateOpinionPokemon(input.pokemon_name, input),
 
         onMutate: async (input) => {
-            await queryClient.cancelQueries({ queryKey: ["pokemon", name] })
+            await queryClient.cancelQueries({ queryKey: ["pokemon", input.pokemon_name] })
 
-            const previousPokemon = queryClient.getQueryData<Pokemon>(["pokemon", name])
+            const previousPokemon = queryClient.getQueryData<Pokemon>(["pokemon", input.pokemon_name])
 
             if (previousPokemon) {
                 const newOpinion = {
@@ -38,7 +39,7 @@ export function useAddOpinion(name: string) {
                     created_at: Date.now() / 1000,
                 }
 
-                queryClient.setQueryData<Pokemon>(["pokemon", name], {
+                queryClient.setQueryData<Pokemon>(["pokemon", input.pokemon_name], {
                     ...previousPokemon,
                     opinions: [...previousPokemon.opinions, newOpinion],
                 })
@@ -47,16 +48,15 @@ export function useAddOpinion(name: string) {
             return { previousPokemon }
         },
 
-        onError: (err, _variables, context) => {
-            if (context?.previousPokemon) {
-                queryClient.setQueryData(["pokemon", name], context.previousPokemon)
+        onError: (err, variables, context) => {
+            if (context?.previousPokemon && variables.pokemon_name) {
+                queryClient.setQueryData(["pokemon", variables.pokemon_name], context.previousPokemon)
             }
             console.error("Erro ao adicionar opinião:", err)
         },
 
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ["pokemon", name] })
-        },
+        }
     })
-
 }
