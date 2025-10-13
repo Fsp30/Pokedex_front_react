@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersCreateRouteImport } from './routes/users/create'
+import { Route as PokemonsGetPokemonStatsRouteImport } from './routes/pokemons/getPokemonStats'
+import { Route as PokemonsCreateOpinionRouteImport } from './routes/pokemons/createOpinion'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +24,61 @@ const UsersCreateRoute = UsersCreateRouteImport.update({
   path: '/users/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PokemonsGetPokemonStatsRoute = PokemonsGetPokemonStatsRouteImport.update({
+  id: '/pokemons/getPokemonStats',
+  path: '/pokemons/getPokemonStats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PokemonsCreateOpinionRoute = PokemonsCreateOpinionRouteImport.update({
+  id: '/pokemons/createOpinion',
+  path: '/pokemons/createOpinion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/pokemons/createOpinion': typeof PokemonsCreateOpinionRoute
+  '/pokemons/getPokemonStats': typeof PokemonsGetPokemonStatsRoute
   '/users/create': typeof UsersCreateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/pokemons/createOpinion': typeof PokemonsCreateOpinionRoute
+  '/pokemons/getPokemonStats': typeof PokemonsGetPokemonStatsRoute
   '/users/create': typeof UsersCreateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/pokemons/createOpinion': typeof PokemonsCreateOpinionRoute
+  '/pokemons/getPokemonStats': typeof PokemonsGetPokemonStatsRoute
   '/users/create': typeof UsersCreateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/users/create'
+  fullPaths:
+    | '/'
+    | '/pokemons/createOpinion'
+    | '/pokemons/getPokemonStats'
+    | '/users/create'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/users/create'
-  id: '__root__' | '/' | '/users/create'
+  to:
+    | '/'
+    | '/pokemons/createOpinion'
+    | '/pokemons/getPokemonStats'
+    | '/users/create'
+  id:
+    | '__root__'
+    | '/'
+    | '/pokemons/createOpinion'
+    | '/pokemons/getPokemonStats'
+    | '/users/create'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PokemonsCreateOpinionRoute: typeof PokemonsCreateOpinionRoute
+  PokemonsGetPokemonStatsRoute: typeof PokemonsGetPokemonStatsRoute
   UsersCreateRoute: typeof UsersCreateRoute
 }
 
@@ -65,11 +98,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsersCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pokemons/getPokemonStats': {
+      id: '/pokemons/getPokemonStats'
+      path: '/pokemons/getPokemonStats'
+      fullPath: '/pokemons/getPokemonStats'
+      preLoaderRoute: typeof PokemonsGetPokemonStatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pokemons/createOpinion': {
+      id: '/pokemons/createOpinion'
+      path: '/pokemons/createOpinion'
+      fullPath: '/pokemons/createOpinion'
+      preLoaderRoute: typeof PokemonsCreateOpinionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PokemonsCreateOpinionRoute: PokemonsCreateOpinionRoute,
+  PokemonsGetPokemonStatsRoute: PokemonsGetPokemonStatsRoute,
   UsersCreateRoute: UsersCreateRoute,
 }
 export const routeTree = rootRouteImport

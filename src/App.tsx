@@ -1,16 +1,16 @@
 
-import UserInfo from './components/ApiResponse';
-
+import { HomePage } from "./pages/HomePage";
 
 
 
 function App() {
-  return(
+
+
+  return (
     <>
-      <p>Eu bebo agua</p>
-      <UserInfo/>
+      <HomePage/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
