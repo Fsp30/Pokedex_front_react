@@ -3,7 +3,7 @@ import { getPokemonInputSchema } from '../../schemas/request/pokemonSchemaReques
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { PokemonAllStats } from '../Pokemon/PokemonAllStats';
+import { PokemonCard } from '../Pokemon/PokemonCard';
 
 type GetPokemon = z.infer<typeof getPokemonInputSchema>
 
@@ -44,7 +44,7 @@ export function SearchPokemonForm(){
                                 </button>
                         </form>
 
-                        {pokemonName && <PokemonAllStats name={pokemonName} />}
+                        {pokemonName && <PokemonCard name={pokemonName} />}
                 </div>
         );
 }

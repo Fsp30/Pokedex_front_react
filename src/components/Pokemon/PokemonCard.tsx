@@ -8,7 +8,7 @@ interface PokemonCardProps {
   name: string;
 }
 
-export function PokemonCard({ name = "pikachu" }: PokemonCardProps) {
+export function PokemonCard({name}: PokemonCardProps) {
   return (
     <div className="pokemon-card-container">
       <PokemonAllStats name={name} />
