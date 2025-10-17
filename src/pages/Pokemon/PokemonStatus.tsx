@@ -1,12 +1,13 @@
-import { PokemonCard } from "../../components/Pokemon/PokemonCard";
-import { DefaultLayout } from '../layout/DefaultLayout';
+import { SearchPokemonForm } from "../../components/global/SearchPokemonForm";
+import { DefaultLayout } from "../layout/DefaultLayout";
 
 export function PokemonHome() {
         return (
-             
-                        <DefaultLayout>
-                                <PokemonCard name={"pikachu"} />
-                        <DefaultLayout/>
-       
-        )
+                <DefaultLayout>
+                        <main>
+                                <h1>Buscar Pokemon</h1>
+                                <SearchPokemonForm/>
+                        </main>
+                </DefaultLayout>
+        );
 }
