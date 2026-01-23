@@ -5,6 +5,7 @@ export function Header() {
         return (
                 <>
                         <header>
+tabajara pokémon 
                                 <Navbar/>
                                 <div>
                                         <SearchPokemonForm />
