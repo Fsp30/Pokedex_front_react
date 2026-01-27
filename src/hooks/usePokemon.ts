@@ -36,7 +36,7 @@ export function useLikePokemon(name: string) {
                         return { previousPokemon }
                 },
 
-                onError: (err, _variables, context) => {
+                onError: (err, context) => {
                         if (context?.previousPokemon) {
                                 console.log(err)
                                 queryClient.setQueryData(["pokemon", name], context.previousPokemon)
