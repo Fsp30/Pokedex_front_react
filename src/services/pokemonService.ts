@@ -9,9 +9,9 @@ export async function getPokemon(pokemon_name:string): Promise<Pokemon> {
                 const {data} = await api.get(`/pokemon/${pokemon_name}`)
                 return pokemonFullResponseSchema.parse(data)
         }catch(err: any){
-                throw new Error(err.response?.data?.message || err.message || "Error when searching Pokemon")
+                throw new Error(err.response?.data?.message || err.message || "Error when searching Pokemon");
         }
-}
+};
 
 export async function likePokemon(pokemon_name:string) {
         try{
